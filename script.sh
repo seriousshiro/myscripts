@@ -11,15 +11,13 @@ else  name=$1_$(date +"%d_%m_%Y")
 fi
 
 #фильтрация по статусу и перенос первого столбца list.out с результата grep'a
-grep 'Running' ./list.out | awk '{print$1}' > "$name"_running.out
-rm list.out
+grep 'Running' ./list.out | awk '{print$1}' > "$name"_running.out && rm list.out
 
 #Если папки achives нет, то это эта команда ее создает.
 mkdir archives
 
 #архивирование
-tar -czpf ./archives/"$name".tar.gz "$name"_running.out
-rm  ./"$name"_running.out
+tar -czpf ./archives/"$name".tar.gz "$name"_running.out && rm  ./"$name"_running.out
 
 #проверка на целостность архива.
 #За lifecheck взял открытие содержимого архива
